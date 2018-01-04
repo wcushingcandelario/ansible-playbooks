@@ -1,0 +1,89 @@
+---
+
+- name: Ensure New Relic folder exists
+  file:
+    path="{{ jetty_dir }}/newrelic"
+    state=directory
+    mode=0755
+
+- name: Download New Relic package from NewRelic
+  get_url:
+    url: 'https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip'
+    dest: "{{ jetty_dir }}/newrelic/newrelic-java.zip"
+    mode: 0755
+
+- name: unpack New Relic
+  command: "unzip {{ jetty_dir }}/newrelic/newrelic-java.zip"
+  args:
+    chdir: "{{ jetty_dir }}/newrelic"
+    creates: "{{ jetty_dir }}/newrelic/newrelic.jar"
+  register: unpacked
+
+- name: moves New Relic content to its rightfull place
+  shell:
+    mv newrelic/* ./; rm -rf newrelic
+    chdir="{{ jetty_dir }}/newrelic"
+    creates="{{ jetty_dir }}/newrelic/newrelic.jar"
+
+- name: get the instance ID
+  shell: curl -s http://169.254.169.254/latest/meta-data/instance-id
+  register: INSTANCE_ID
+  when: ami_role != 'ami_builder'
+  tags:
+    - ad_hoc
+
+- name: get the instances environment tag
+  shell: aws ec2 describe-tags --region=eu-west-1 --filters "Name=resource-id,Values={{INSTANCE_ID.stdout}}" "Name=key,Values=environment" --output=text | cut -f5
+  register: env_tag
+  when: ami_role != 'ami_builder'
+  tags:
+    - ad_hoc
+
+- set_fact:
+    newrelic_app_name: "{{ env_tag.stdout }}"
+  when: ami_role != 'ami_builder'
+  tags:
+    - ad_hoc
+
+- name: configures newrelic.yml for an AMI
+  template:
+    src="newrelic_ami.yml.j2"
+    dest="{{ jetty_dir }}/newrelic/newrelic.yml"
+  when: ami_role == 'ami_builder'
+  tags:
+    - baking_ami
+
+- name: Configure newrelic.yml for ad_hoc
+  template:
+    src="newrelic.yml.j2"
+    dest="{{ jetty_dir }}/newrelic/newrelic.yml"
+  when: ami_role != 'ami_builder'
+  tags:
+    - ad_hoc
+
+- name: run installer
+  shell:
+    java -jar newrelic.jar install
+    chdir="{{ jetty_dir }}/newrelic"
+  register: installerout
+
+- debug: msg="{{ installerout.stdout }}"
+
+- name: fix the installer brokenness
+  lineinfile:
+    dest: /etc/init.d/jetty
+    regexp: 'newrelic/newrelic.jar'
+    line: 'NR_JAR={{ jetty_dir }}/newrelic/newrelic.jar; export NR_JAR'
+
+- name: Make jetty own NewRelic directory
+  file:
+    path: "{{ jetty_dir }}/newrelic"
+    owner: jetty
+    group: jetty
+    recurse: yes
+    state: directory
+  become: yes
+  become_user: root
+
+#- include: jetty.yml
+#  when: newrelic_container == 'jetty'

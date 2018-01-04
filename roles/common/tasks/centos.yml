@@ -1,0 +1,17 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- name: Disable SELinux
+  selinux: state=permissive policy=targetted
+  become: yes
+  become_user: root
+
+- name: Empty iptables [FIX ME]
+  command: iptables -F
+  become: yes
+  become_user: root
+
+- name: Enable EPEL the CentOS way
+  yum: name=epel-release state=present
+  become: yes
+  become_user: root

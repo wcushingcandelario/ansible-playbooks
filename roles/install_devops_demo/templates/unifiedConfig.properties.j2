@@ -1,0 +1,79 @@
+#Tue Jun 07 15:45:15 EDT 2016
+#Updated through OVCInstaller
+#oort.url=
+MESSAGE_COUNTER=10
+TIMEOUT=10000
+cartDetails.url=/v2/%s/users/%s/carts
+client_id=trusted_client
+client_secret=secret
+crosschannel.alerts.host={{ item.value.crosschannel_alerts_host }}
+crosschannel.alerts.port=3007
+crosschannel.alerts.scheme=http
+crosschannel.apigateway.port=3009
+crosschannel.apigateway.version=v1
+crosschannel.isIntegrated=1
+customerDetails.url=/v2/%s/users/%s
+ecommerce.fromClient.context=yacceleratorstorefront
+ecommerce.fromClient.host={{ item.value.ecommerce_host }}
+ecommerce.fromClient.logout_relative_url=/en/logout
+ecommerce.fromClient.port=443
+ecommerce.fromClient.scheme=https
+ecommerce.fromServer.baseSiteId={{ item.value.basesiteid }}
+ecommerce.fromServer.host={{ item.value.ecommerce_host }}
+ecommerce.fromServer.occ.type=2
+ecommerce.fromServer.port=443
+ecommerce.fromServer.scheme=https
+ecommerce.vendor=1
+employees.url=/v2/%s/ovc/employee/%s
+export.product.catalog.name=apparelProductCatalog
+export.product.catalog.version=Online
+export.product.type=ApparelProduct
+export.products.url=/v2/%s/ovc/export/products/%s/%s
+grant_type=client_credentials
+grant_type_pwd=password
+import.locProduct.fromStock=false
+import.stock.balanceType=ats
+import.stock.host=devim.ovcdemo.com
+import.stock.oauth.code.url=/oauth/code
+import.stock.oauth.code.value=jmsuser
+import.stock.oauth.port=3009
+import.stock.port=3007
+import.stock.scheme=http
+import.stock.type=product
+import.stock.url=stockbalances
+mailServer.encrypted.password=RbNGPpJVCZ6CIIvlQ8d/cg\=\=
+mailServer.from=donotreply@oneviewcommerce.com
+mailServer.smtp.auth=True
+mailServer.smtp.host=smtp.gmail.com
+mailServer.smtp.port=587
+mailServer.smtp.starttls.enable=True
+mailServer.username=donotreply@oneviewcommerce.com
+oAuth.required=true
+oauth.endpoint.url=/oauth/token
+oort.cloud=
+others.import.pageSize=2000
+ovcDB.db={{ item.value.name }}_xdb
+ovcDB.driver=com.mysql.jdbc.Driver
+ovcDB.encrypted.password=L3Q5kQqII0OlaJ9FGCaukQ==
+ovcDB.host={{ item.value.mysql_host }}
+ovcDB.params=autoReconnect\=true
+ovcDB.port=3306
+ovcDB.scheme=jdbc\:mysql
+ovcDB.username=root
+ovcNOSQLDB.connectTimeout=5000
+ovcNOSQLDB.connectionsPerHost=20
+ovcNOSQLDB.db={{ item.value.name }}_xdb
+ovcNOSQLDB.maxWaitTime=5000
+ovcNOSQLDB.socketTimeout=5000
+ovcNOSQLDB.uri=mongodb://root:root@{{ item.value.nosql_host }}:27017/{{ item.value.name }}_xdb?authSource={{ item.value.name }}_xdb
+ovcServer.host={{ item.value.url }}
+ovcServer.port=443
+ovcServer.scheme=https
+password=S9beBCmJbdLsitMzzpZ7qQ\=\=
+products.import.pageSize=50
+scope=extended
+secure.occhost.context=/rest
+store.finder.stock.url=/v2/%s/products/%s/stock
+stores.url=/v2/%s/stores
+username=customermanager
+comm.tlog.url={{ item.value.sqs_or_sns_config }}

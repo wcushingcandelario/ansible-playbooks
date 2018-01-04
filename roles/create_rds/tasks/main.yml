@@ -1,0 +1,46 @@
+- name: launch RDS instance
+  local_action:
+    module: rds
+    command: create
+    instance_name: "{{ environment_name }}"
+    vpc_security_groups: "{{ rds_security_group }}"
+    upgrade: yes
+    backup_retention: 21
+    subnet: "{{ rds_subnet_group }}"
+    region: "{{ region }}"
+    ## The next 4 settings are dependant on whether it is prod or preprod. Preprod doesn't need multiAZ.
+    multi_zone: "{{ multirdszone }}"
+    maint_window: Sat:22:00-Sat:23:15
+    backup_window: 00:00-01:00
+#    force_failover: no
+    publicly_accessible: no
+    db_engine: MySQL
+    db_name: xdb
+    size: 100
+    instance_type: "{{ rds_instance_type }}"
+    wait: yes
+    wait_timeout: 1200
+    username: root
+    password: 0n3v13w123
+    parameter_group: ovc-rds-parameters
+    tags:
+      Environment: ovc-{{ environment_name }}
+      Application: ovc
+  register: rds_instance
+
+- name: Add or Update Route53 entry
+  route53:
+    command: "create"
+    zone: "{{ dns_domain }}"
+    hosted_zone_id: "{{ dns_zone_id }}"
+    private_zone: "{{ dns_private_zone }}"
+    record: "mysql-{{ deploy_type }}.{{ dns_domain }}"
+    type: "CNAME"
+    ttl: 300
+    value: "{{ rds_instance.instance.endpoint }}"
+    overwrite: "yes"
+  when: rds_instance.instance is defined
+  tags:
+    - dns
+
+- debug: msg="{{ rds_instance }}"

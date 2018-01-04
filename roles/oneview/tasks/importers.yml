@@ -1,0 +1,19 @@
+---
+
+- name: Initialize OneView Server
+  shell: "{{ ovc_install_dir }}/bin/initOVCServer.sh"
+  become: yes
+  become_user: jetty
+  register: initilization
+#  ignore_errors: yes
+  # async:  600
+  notify: Restart Jetty
+  tags:
+    - importers
+    - coreimporters
+  notify:
+    - Restart Jetty
+    - Restart Apache
+
+
+- debug: var=initilization

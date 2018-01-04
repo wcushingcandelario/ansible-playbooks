@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure id="demo" class="org.eclipse.jetty.webapp.WebAppContext">
+
+	<Set name="war">{{ ovc_install_dir }}/posWebapp</Set>
+	<Set name="contextPath">/</Set>
+	<Set name="extractWAR">false</Set>
+	<Set name="maxFormContentSize">20000000</Set>
+
+
+	<Set name="securityHandler">
+		<New class="org.eclipse.jetty.security.ConstraintSecurityHandler">
+			<Set name="loginService">
+				<New class="org.eclipse.jetty.jaas.JAASLoginService">
+					<Set name="name">OVCRealm</Set>
+					<Set name="loginModuleName">OVCRealm</Set>
+					<Set name="callbackHandlerClass">com.oneview.jetty.jaas.OVCCallbackHandler</Set>
+				</New>
+			</Set>
+		</New>
+	</Set>
+
+	<Get id="encryptionHelper" class="com.oneview.util.AESEncryptionHelper" name="instance"/>
+	<Ref refid="encryptionHelper">
+		<Call id="password" name="decrypt">
+			<Arg>{{ ovcDB_encrypted_password | replace('\\', '') }}</Arg>
+		</Call>
+	</Ref>
+
+	<New class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg>
+			<Ref id="demo"/>
+		</Arg>
+		<Arg>jdbc/ds</Arg>
+
+		<Arg>
+
+			<New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+				<Set name="URL">{{ ovcDB_scheme }}://{{ ovcDB_host }}:{{ ovcDB_port }}/{{ ovcDB_db }}</Set>
+				<Set name="user">{{ ovcDB_username }}</Set>
+				<Set name="password">
+					<Ref refid="password"/>
+				</Set>
+			</New>
+
+		</Arg>
+	</New>
+
+</Configure>

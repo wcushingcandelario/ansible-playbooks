@@ -1,0 +1,35 @@
+[Main]
+user-key={{ logentries_account_key }}
+
+
+[Jetty Logs]
+path = {{ jetty_dir }}/logs/20*.log
+destination = {{ environment_name | default('TEST_environment_name') }}/Jetty
+
+[Jetty stderror Logs]
+path = {{ jetty_dir }}/logs/*stderrout*.log
+destination = {{ environment_name | default('TEST_environment_name') }}/Jetty_Std_Error
+
+[Jetty Start logs]
+path = {{ jetty_dir }}/logs/start.log
+destination = {{ environment_name | default('TEST_environment_name') }}/Jetty
+
+[Importer Logs]
+path = {{ jetty_dir }}/logs/quartz*.log
+destination = {{ environment_name | default('TEST_environment_name') }}/Importers
+
+[Dashboard Error logs]
+path = {{ html_root }}/ovcdashboard/app/tmp/logs/error.log
+destination = {{ environment_name | default('TEST_environment_name') }}/Dashboard
+
+[SSH Logs]
+path = /var/log/secure
+destination = {{ environment_name | default('TEST_environment_name') }}/SSH
+
+[NGINX Access Log]
+path = /var/log/nginx/access.log
+destination = {{ environment_name | default('TEST_environment_name') }}/NGINX
+
+[Cron logs]
+path = /var/log/cron
+destination = {{ environment_name | default('TEST_environment_name') }}/Cron

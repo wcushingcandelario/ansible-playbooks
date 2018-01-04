@@ -1,0 +1,22 @@
+---
+
+- name: Create Utility RDS
+  hosts: all
+  remote_user: ec2-user
+  tasks:
+    - name: Update configs from AMI
+      become: yes
+      become_user: root
+      with_items:
+        - { dest: 'roles/install_devops_demo/templates/unifiedConfig.properties.{{ inventory_hostname }}', src: '/opt/ovc/Platform-Dynamic-Objects/config/unifiedConfig.properties' }
+        - { dest: 'roles/install_devops_demo/templates/tools.properties.{{ inventory_hostname }}', src: '/opt/ovc/Platform-Dynamic-Objects/config/tools.properties' }
+        - { dest: 'roles/install_devops_demo/templates/context.xml.{{ inventory_hostname }}', src: '/opt/jetty/webapps/context.xml' }
+        - { dest: 'roles/install_devops_demo/templates/database.php.{{ inventory_hostname }}', src: '/var/www/html/ovcdashboard/app/Config/database.php' }
+        - { dest: 'roles/install_devops_demo/templates/setting_var.php.{{ inventory_hostname }}', src: '/var/www/html/ovcdashboard/app/Config/setting_var.php' }
+      fetch:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        flat: yes
+        fail_on_missing: yes
+      tags:
+        - fetch

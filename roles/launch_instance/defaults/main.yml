@@ -1,0 +1,8 @@
+encrypt_instance: yes
+termination_protection: yes
+launch_exact_count: 1
+launch_tag_role: webapp
+launch_tag_name: "{{ deploy_type }}.{{ dns_domain }}"
+ovc_git_sha: unset
+delete_on_termination: true
+instance_initiated_shutdown_behavior: stop

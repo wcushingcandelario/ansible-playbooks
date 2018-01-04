@@ -1,0 +1,51 @@
+clustered_environment: Yes
+
+# Common
+deploy_type: prod
+region: eu-west-1
+key: ovc-tp-prod
+ansible_ssh_private_key_file: "~/.ssh/tp-prod.pem"
+
+# DB
+environment_name: prod-rds
+mysql_host: "mysql-{{ deploy_type }}.{{ dns_domain }}"
+rds_security_group: sg-be2081d9
+rds_subnet_group: prod-rds
+multirdszone: yes
+
+
+# AMI/ELB/ASG
+ovc_security_groups: ['sg-b12180d6']
+vpc_subnet_public: subnet-1d719879
+IAMROLE: "ProdAppServer"
+instance_type_single: "m4.xlarge"
+instance_type_asg: "m4.xlarge"
+
+group_id: "{{ ovc_security_groups }}"
+security_group_ids: "sg-12e5a275,sg-655eff02,sg-b12180d6"
+elbsubnets: "subnet-0abd536e,subnet-10948367,subnet-354f656c"
+vpc_subnet_id: subnet-0abd536e
+
+min_size: 2
+max_size: 5
+
+# Promo Engine
+
+promo_path: "https://{{ deploy_type }}-promo.{{ dns_domain }}:3000/promotions/"
+dockercfg: dockercfg
+dockerrun_version: "2"
+mongo_url: "mongodb://mongodb-{{ deploy_type }}01.{{ dns_domain }}:27017,mongodb-{{ deploy_type }}02.{{ dns_domain }}:27017,mongodb-{{ deploy_type }}03.{{ dns_domain }}:27017/ovcpromo"
+tier: WebServer
+security_group_ids: "sg-b12180d6,sg-12e5a275,sg-655eff02"
+elb_security_group_id: sg-12e5a275
+vpc_id: vpc-44babf21
+pe_monitor: yes
+
+#dockerrun_version: "2"
+#dockercfg: dockercfg
+#mongo_url: "mongodb://mongodb-{{ deploy_type }}01.{{ dns_domain }}:27017,mongodb-{{ deploy_type }}02.{{ dns_domain }}:27017,mongodb-{{ deploy_type }}03.{{ dns_domain }}:27017/ovcpromo"
+#promo_path: "https://{{ deploy_type }}-promo.{{ dns_domain }}:3000/promotions/"
+#tier: WebServer
+#security_group_ids: "sg-b12180d6,sg-12e5a275,sg-655eff02"
+#elb_security_group_id: sg-12e5a275
+#elbsubnets: "subnet-0abd536e,subnet-10948367"

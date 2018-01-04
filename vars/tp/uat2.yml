@@ -1,0 +1,40 @@
+clustered_environment: No
+
+# Common
+deploy_type: uat2
+region: eu-west-1
+key: ovc-tp-np
+ansible_ssh_private_key_file: "~/.ssh/ovc-tp-np.pem"
+
+# DB
+environment_name: "{{ deploy_type }}-rds"
+mysql_host: "mysql-{{ deploy_type }}.{{ dns_domain }}"
+rds_security_group: sg-be19edd9
+rds_subnet_group: pre-prod-rds
+multirdszone: no
+
+# Mongo CM
+mongo_security_group: sg-4af56f2c
+mongo_subnet_id: "subnet-74609202"
+
+# AMI/ELB/ASG
+ovc_security_groups: sg-be19edd9
+vpc_subnet_public: subnet-9abe50fe
+IAMROLE: "NonProdAppServer"
+instance_type_single: "t2.xlarge"
+
+group_id: "sg-4f04f028,sg-bd1aeeda"
+vpc_subnet_id: "subnet-69a24c0d"
+min_size: 1
+max_size: 1
+
+# Promo Engine
+dockerrun_version: "2"
+dockercfg: dockercfg
+mongo_url: "mongodb://mongodb-{{ deploy_type }}.{{ dns_domain }}:{{ mongo_port }}/"
+promo_path: "https://{{ deploy_type }}-promo.{{ dns_domain }}:3000/promotions/"
+tier: WebServer
+security_group_ids: "sg-4f04f028,sg-bd1aeeda,sg-11ce3976"
+elb_security_group_id: sg-11ce3976
+elbsubnets: "subnet-27ba4b51,subnet-69a24c0d"
+pe_monitor: yes

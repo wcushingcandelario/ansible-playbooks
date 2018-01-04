@@ -1,0 +1,99 @@
+# !! READ ME !!
+#   Until the tag is set in the branches of the code we are deploying from
+# (MPOS, TP, etc.) we should keep the previous version tagged to the SQL script.
+# For example:
+#  - file: /opt/ovc/installFiles/OVC_Install/alters-5160-mysql.sql
+#    version: 5.15.0
+# Then on release:
+#  - file: /opt/ovc/installFiles/OVC_Install/alters-5160-mysql.sql
+#    version: 5.16.0
+
+alters_files:
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5100-mysql.sql
+    version: 5.10.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5100.sql
+    version: 5.10.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5110-mysql.sql
+    version: 5.11.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5110.sql
+    version: 5.11.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5111-mysql.sql
+    version: 5.11.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5111.sql
+    version: 5.11.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5120-mysql.sql
+    version: 5.12.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5120.sql
+    version: 5.12.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5130-mysql.sql
+    version: 5.13.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5130.sql
+    version: 5.13.0
+  - file: /opt/ovc/installFiles/OVC_Customizations/customerData/sql/tp-alters-5130-mysql.sql
+    version: 5.13.0
+    customer: tp
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5131-mysql.sql
+    version: 5.13.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5131.sql
+    version: 5.13.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5132-mysql.sql
+    version: 5.13.2
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5132.sql
+    version: 5.13.2
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5133-mysql.sql
+    version: 5.13.3
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5133.sql
+    version: 5.13.3
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5134-mysql.sql
+    version: 5.13.4
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5134.sql
+    version: 5.13.4
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5135-mysql.sql
+    version: 5.13.5
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5135.sql
+    version: 5.13.5
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5140-mysql.sql
+    version: 5.14.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5140.sql
+    version: 5.14.0
+  - file: /opt/ovc/installFiles/OVC_Customizations/customerData/sql/tp-alters-5140-mysql.sql
+    version: 5.14.0
+    customer: tp
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5150-mysql.sql
+    version: 5.15.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5150.sql
+    version: 5.15.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5160-mysql.sql
+    version: 5.16.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5160.sql
+    version: 5.16.0
+  - file: /opt/ovc/installFiles/OVC_Customizations/customerData/sql/tp-alters-5160-mysql.sql
+    version: 5.16.0
+    customer: tp
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5161-mysql.sql
+    version: 5.16.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5170-mysql.sql
+    version: 5.17.0
+  - file: /opt/ovc/installFiles/OVC_Customizations/customerData/sql/tp-alters-5170-mysql.sql
+    version: 5.17.0
+    customer: tp
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5171-mysql.sql
+    version: 5.17.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5171.sql
+    version: 5.17.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5172-mysql.sql
+    version: 5.17.2
+  - file: /opt/ovc/installFiles/OVC_Install/alters-manual-5180-mysql.sql
+    version: 5.18.0
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5180-mysql.sql
+    version: 5.18.0
+  - file: /opt/ovc/installFiles/OVC_Customizations/customerData/sql/tp-alters-5180-mysql.sql
+    version: 5.18.0
+    customer: tp
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5181-mysql.sql
+    version: 5.18.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-data-import-5181.sql
+    version: 5.18.1
+  - file: /opt/ovc/installFiles/OVC_Install/alters-5182-mysql.sql
+    version: 5.18.2
+    customer: tp

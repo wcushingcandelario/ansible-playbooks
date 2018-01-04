@@ -1,0 +1,47 @@
+dns_zone_id: Z3A98VA7X0SL0T
+dns_domain: ovchosting.co.uk
+ansible_ssh_private_key_file: "~/.ssh/ovc-private.pem"
+region: eu-west-1
+key: ovc-tp-np
+ami_baker_key: ovc-private
+ami_baker_rds_security_group: sg-6387e207,sg-0591ee7f
+ami_baker_rds_subnet_group: "rds subnet"
+ami_baker_ovc_security_groups: sg-62fc7a06,sg-6387e207,sg-eeecf389
+ami_baker_vpc_subnet_public: subnet-9f8a92b7
+ami_baker_instance_profile_name: S3_Release_Read
+ami_baker_region: us-east-1
+ssl_certificate_id: "arn:aws:iam::063725663692:server-certificate/elbs-ovchosting-promo"
+skip_ssl: No
+s3_bucket: ovc-travisperkins-releases
+use_public_ip: No
+elb_scheme: internal
+skip_custom: No
+dns_private_zone: Yes
+solution_stack_name: "64bit Amazon Linux 2016.09 v2.2.0 running Multi-container Docker 1.11.2 (Generic)"
+alias_hosted_zone: Z32O12XQLNTSW2
+vpc_id: vpc-ccb0b5a9
+instance_type_pe: t2.medium
+beanstalk_iam_role: aws-elasticbeanstalk-ec2-role
+beanstalk_service_role: aws-elasticbeanstalk-service-role
+s3_bucket_docker: "ovc-github-access-2"
+s3_bucket_beanstalk: "elasticbeanstalk-eu-west-1-063725663692"
+beanstalk_template_version: 1.1.0.0
+customer_account_id: 063725663692
+pe_role: promo-engine
+customer: tp
+customer_long: TravisPerkins
+ami_release: release
+ami_customer: tp
+mongo_instance_count: 1
+instance_type_mongo: t2.medium
+mongo_port: 27017
+nosql_port: 27000
+ami_owner: 748109554602 # The OVC Demo account
+s3_bucket_customer: ovc-travisperkins-releases
+s3_bucket: ovc-travisperkins-releases
+ami_target_region: eu-west-1
+ami_temp_vpc_subnet_public: subnet-4f93d938
+newrelic_license_key: "{{ enc_newrelic_license_key }}"
+mmsGroupId: "{{ enc_mmsGroupId }}"
+mmsApiKey: "{{ enc_mmsApiKey }}"
+mysql_database: xdb
